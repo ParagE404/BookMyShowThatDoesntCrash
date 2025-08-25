@@ -21,6 +21,8 @@ router.post('/join', async (req, res) => {
     const { eventId } = req.body;
     const userId = req.user.id;
 
+    console.log(`User ${userId} is joining event ${eventId}`);
+
     if (!eventId) {
       return res.status(400).json({
         error: {
@@ -34,6 +36,8 @@ router.post('/join', async (req, res) => {
       email: req.user.email,
       role: req.user.role
     };
+
+    console.log(`User ${userId} is joining event ${eventId}`);
 
     const result = await queueService.joinQueue(eventId, userId, userInfo);
 

@@ -1,4 +1,4 @@
-// src/App.jsx
+// frontend/src/App.jsx
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
@@ -8,11 +8,11 @@ import {
 } from 'react-router-dom';
 import Login from './components/Login';
 import QueueStatus from './components/QueueStatus';
+import BookingPage from './components/BookingPage'; // New import
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check for token on initial load
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     if (token) {
@@ -33,10 +33,12 @@ function App() {
   return (
     <Router>
       <div>
-        <header>
-          <h1>Coldplay Ticket Queue</h1>
+        <header style={{ padding: '20px', background: '#f8f9fa', borderBottom: '1px solid #dee2e6' }}>
+          <h1>🎫 Coldplay Ticket Queue</h1>
           {isAuthenticated && (
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout} style={{ float: 'right' }}>
+              Logout
+            </button>
           )}
         </header>
 
@@ -63,7 +65,18 @@ function App() {
             }
           />
 
-          {/* Redirect any other path to login */}
+          {/* New booking route */}
+          <Route
+            path="/booking/:eventId"
+            element={
+              isAuthenticated ? (
+                <BookingPage />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+
           <Route
             path="*"
             element={

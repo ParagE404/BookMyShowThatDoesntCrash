@@ -153,28 +153,85 @@ class VirtualQueueService {
   async getQueueStats(eventId) {
     const redis = await this.connectRedis();
     const queueKey = `queue:${eventId}`;
-  
+
     // Total queue size
     const queueSize = await redis.zCard(queueKey);
-  
+
     // Safely get oldest and newest entries with scores
     const oldest = await redis.zRangeWithScores(queueKey, 0, 0);
     const newest = await redis.zRangeWithScores(queueKey, -1, -1);
-  
+
     const oldestTimestamp = oldest[0]?.score || null;
-    const newestTimestamp = newest?.score || null;
-  
+    const newestTimestamp = newest[0]?.score || null;
+
     return {
       eventId,
       queueSize,
-      oldestUser: oldest?.value || null,
+      oldestUser: oldest[0]?.value || null,
       oldestTimestamp,
-      newestUser: newest?.value || null,
+      newestUser: newest[0]?.value || null,
       newestTimestamp,
-      averageWaitTime: this.calculateEstimatedWaitTime(Math.ceil(queueSize / 2))
+      averageWaitTime: this.calculateEstimatedWaitTime(
+        Math.ceil(queueSize / 2)
+      ),
     };
   }
-  
+
+  /**
+   * Advance the queue by processing the next batch of users.
+   * @param {string} eventId
+   * @param {number} batchSize - number of users to advance
+   */
+  async processQueueBatch(eventId, batchSize = 1) {
+    try {
+      const redis = await this.connectRedis();
+      const queueKey = `queue:${eventId}`;
+
+      const queueSize = await redis.zCard(queueKey);
+      console.log(
+        `🚀 Processing queue ${queueKey}: ${queueSize} users in queue`
+      );
+
+      if (queueSize === 0) {
+        console.log(`🚀 Advanced 0 users for ${eventId}: [] (queue is empty)`);
+        return [];
+      }
+
+      const poppedItems = await redis.zPopMin(queueKey, batchSize);
+      console.log(`🔄 zPopMin result:`, poppedItems);
+
+      if (!poppedItems) {
+        console.log(
+          `🚀 Advanced 0 users for ${eventId}: [] (zPopMin returned null)`
+        );
+        return [];
+      }
+
+      let usersAdvanced = [];
+
+      // Normalize the result to always be an array of user IDs
+      if (Array.isArray(poppedItems)) {
+        // Array format: [value1, score1, value2, score2, ...]
+        for (let i = 0; i < poppedItems.length; i += 2) {
+          if (poppedItems[i]) {
+            usersAdvanced.push(poppedItems[i]);
+          }
+        }
+      } else if (poppedItems.value) {
+        // Single object format: { value: 'userId', score: 123456789 }
+        usersAdvanced = [poppedItems.value];
+      }
+
+      console.log(
+        `🚀 Advanced ${usersAdvanced.length} users for ${eventId}:`,
+        usersAdvanced
+      );
+      return usersAdvanced;
+    } catch (error) {
+      console.error("Error processing queue batch:", error);
+      return [];
+    }
+  }
 
   /**
    * Calculate estimated wait time based on queue position
