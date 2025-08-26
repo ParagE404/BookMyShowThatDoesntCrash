@@ -1,4 +1,4 @@
-// frontend/src/App.jsx
+// Update frontend/src/App.jsx
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
@@ -7,6 +7,7 @@ import {
   Navigate
 } from 'react-router-dom';
 import Login from './components/Login';
+import Register from './components/Register'; // Add this import
 import QueueStatus from './components/QueueStatus';
 import BookingPage from './components/BookingPage';
 import './BookMyShowHeader.css';
@@ -22,6 +23,10 @@ function App() {
   }, []);
 
   const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleRegister = () => {
     setIsAuthenticated(true);
   };
 
@@ -63,6 +68,17 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route
+              path="/register"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/queue" replace />
+                ) : (
+                  <Register onRegister={handleRegister} />
+                )
+              }
+            />
+
+            <Route
               path="/login"
               element={
                 isAuthenticated ? (
@@ -101,7 +117,7 @@ function App() {
                 isAuthenticated ? (
                   <Navigate to="/queue" replace />
                 ) : (
-                  <Navigate to="/login" replace />
+                  <Navigate to="/register" replace />
                 )
               }
             />

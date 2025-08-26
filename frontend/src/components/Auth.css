@@ -1,0 +1,217 @@
+/* frontend/src/components/Auth.css */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, var(--bms-background) 0%, var(--bms-surface) 100%);
+  }
+  
+  .auth-card {
+    background-color: var(--bms-surface);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid var(--bms-border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+  
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .auth-header h1 {
+    color: var(--bms-text-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .auth-header p {
+    color: var(--bms-text-secondary);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .auth-error {
+    background-color: var(--bms-error);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    color: var(--bms-text-primary);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .form-group input {
+    padding: 0.875rem;
+    border: 2px solid var(--bms-border);
+    border-radius: 0.5rem;
+    background-color: var(--bms-background);
+    color: var(--bms-text-primary);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--bms-primary);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  }
+  
+  .form-group input.error {
+    border-color: var(--bms-error);
+    background-color: rgba(239, 68, 68, 0.05);
+  }
+  
+  .form-group input.error:focus {
+    border-color: var(--bms-error);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+  
+  .field-error {
+    color: var(--bms-error);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+  
+  .password-requirements {
+    margin-top: 0.5rem;
+  }
+  
+  .password-requirements span {
+    color: var(--bms-text-muted);
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  
+  .auth-submit {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    position: relative;
+    min-height: 52px;
+  }
+  
+  .auth-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .spinner.small {
+    width: 1rem;
+    height: 1rem;
+    border-width: 2px;
+    margin-right: 0.5rem;
+  }
+  
+  .auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--bms-border);
+  }
+  
+  .auth-footer p {
+    color: var(--bms-text-secondary);
+  }
+  
+  .auth-link {
+    color: var(--bms-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+  
+  .auth-link:hover {
+    color: var(--bms-primary-hover);
+    text-decoration: underline;
+  }
+  
+  .auth-benefits {
+    background-color: var(--bms-background);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .auth-benefits h4 {
+    color: var(--bms-text-primary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  .auth-benefits ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .auth-benefits li {
+    color: var(--bms-text-secondary);
+    font-size: 0.875rem;
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .auth-container {
+      padding: 1rem;
+    }
+    
+    .auth-card {
+      padding: 2rem 1.5rem;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .auth-header h1 {
+      font-size: 1.75rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .auth-card {
+      padding: 1.5rem 1rem;
+    }
+    
+    .auth-header h1 {
+      font-size: 1.5rem;
+    }
+  }
+  
