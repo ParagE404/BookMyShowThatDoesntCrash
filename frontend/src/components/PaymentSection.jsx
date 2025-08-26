@@ -1,14 +1,19 @@
 // frontend/src/components/PaymentSection.jsx
-import React, { useState } from 'react';
-import axios from 'axios';
-import './PaymentSection.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./PaymentSection.css";
 
-export default function PaymentSection({ booking, selectedSeats, onPaymentSuccess, onBack }) {
+export default function PaymentSection({
+  booking,
+  selectedSeats,
+  onPaymentSuccess,
+  onBack,
+}) {
   const [processing, setProcessing] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [paymentMethod, setPaymentMethod] = useState("card");
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem("accessToken");
 
   const handlePayment = async () => {
     try {
@@ -17,33 +22,32 @@ export default function PaymentSection({ booking, selectedSeats, onPaymentSucces
 
       // Create payment intent
       const intentResponse = await axios.post(
-        '/api/payment/create-intent',
+        "/api/payment/create-intent",
         { bookingId: booking.id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       // Simulate payment processing delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Simulate payment
       const paymentResponse = await axios.post(
-        '/api/payment/simulate-payment',
+        "/api/payment/simulate-payment",
         {
           paymentIntentId: intentResponse.data.data.paymentIntentId,
           bookingId: booking.id,
-          success: true
+          success: true,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       onPaymentSuccess({
-        status: 'confirmed',
+        status: "confirmed",
         payment_id: intentResponse.data.data.paymentIntentId,
-        payment_status: 'completed'
+        payment_status: "completed",
       });
-
     } catch (error) {
-      setError('Payment failed. Please try again.');
+      setError("Payment failed. Please try again.");
       setProcessing(false);
     }
   };
@@ -54,7 +58,7 @@ export default function PaymentSection({ booking, selectedSeats, onPaymentSucces
         {/* Booking Summary */}
         <div className="booking-summary-card">
           <h3>Booking Summary</h3>
-          
+
           <div className="event-info">
             <h4>🎵 Coldplay: Music Of The Spheres World Tour</h4>
             <p>📍 DY Patil Stadium, Mumbai</p>
@@ -63,9 +67,11 @@ export default function PaymentSection({ booking, selectedSeats, onPaymentSucces
 
           <div className="selected-seats-summary">
             <h5>Selected Seats ({selectedSeats.length})</h5>
-            {selectedSeats.map(seat => (
+            {selectedSeats.map((seat) => (
               <div key={seat.id} className="seat-summary-item">
-                <span>{seat.category_name} - {seat.seat_number}</span>
+                <span>
+                  {seat.category_name} - {seat.seat_number}
+                </span>
                 <span>₹{seat.price}</span>
               </div>
             ))}
@@ -99,33 +105,35 @@ export default function PaymentSection({ booking, selectedSeats, onPaymentSucces
 
           <div className="payment-methods">
             <div className="payment-method-tabs">
-              <button 
-                className={`tab ${paymentMethod === 'card' ? 'active' : ''}`}
-                onClick={() => setPaymentMethod('card')}
+              <button
+                className={`tab ${paymentMethod === "card" ? "active" : ""}`}
+                onClick={() => setPaymentMethod("card")}
               >
                 💳 Credit/Debit Card
               </button>
-              <button 
-                className={`tab ${paymentMethod === 'upi' ? 'active' : ''}`}
-                onClick={() => setPaymentMethod('upi')}
+              <button
+                className={`tab ${paymentMethod === "upi" ? "active" : ""}`}
+                onClick={() => setPaymentMethod("upi")}
               >
                 📱 UPI
               </button>
-              <button 
-                className={`tab ${paymentMethod === 'netbanking' ? 'active' : ''}`}
-                onClick={() => setPaymentMethod('netbanking')}
+              <button
+                className={`tab ${
+                  paymentMethod === "netbanking" ? "active" : ""
+                }`}
+                onClick={() => setPaymentMethod("netbanking")}
               >
                 🏦 Net Banking
               </button>
             </div>
 
             <div className="payment-form">
-              {paymentMethod === 'card' && (
+              {paymentMethod === "card" && (
                 <div className="card-form">
                   <div className="form-group">
                     <label>Card Number</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       placeholder="1234 5678 9012 3456"
                       defaultValue="4111 1111 1111 1111"
                     />
@@ -133,7 +141,11 @@ export default function PaymentSection({ booking, selectedSeats, onPaymentSucces
                   <div className="form-row">
                     <div className="form-group">
                       <label>Expiry Date</label>
-                      <input type="text" placeholder="MM/YY" defaultValue="12/28" />
+                      <input
+                        type="text"
+                        placeholder="MM/YY"
+                        defaultValue="12/28"
+                      />
                     </div>
                     <div className="form-group">
                       <label>CVV</label>
@@ -142,21 +154,29 @@ export default function PaymentSection({ booking, selectedSeats, onPaymentSucces
                   </div>
                   <div className="form-group">
                     <label>Cardholder Name</label>
-                    <input type="text" placeholder="John Doe" defaultValue="Test User" />
+                    <input
+                      type="text"
+                      placeholder="John Doe"
+                      defaultValue="Test User"
+                    />
                   </div>
                 </div>
               )}
 
-              {paymentMethod === 'upi' && (
+              {paymentMethod === "upi" && (
                 <div className="upi-form">
                   <div className="form-group">
                     <label>UPI ID</label>
-                    <input type="text" placeholder="username@paytm" defaultValue="test@paytm" />
+                    <input
+                      type="text"
+                      placeholder="username@paytm"
+                      defaultValue="test@paytm"
+                    />
                   </div>
                 </div>
               )}
 
-              {paymentMethod === 'netbanking' && (
+              {paymentMethod === "netbanking" && (
                 <div className="netbanking-form">
                   <div className="form-group">
                     <label>Select Bank</label>
@@ -173,15 +193,15 @@ export default function PaymentSection({ booking, selectedSeats, onPaymentSucces
           </div>
 
           <div className="payment-actions">
-            <button 
+            <button
               className="btn btn-secondary"
               onClick={onBack}
               disabled={processing}
             >
               Back to Seat Selection
             </button>
-            
-            <button 
+
+            <button
               className="btn btn-primary pay-button"
               onClick={handlePayment}
               disabled={processing}
