@@ -1,13 +1,100 @@
-body {
+/* frontend/src/index.css - Update with BookMyShow theme */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  /* BookMyShow Color Palette */
+  --bms-primary: #DC2626;         /* Red */
+  --bms-primary-hover: #B91C1C;   /* Darker Red */
+  --bms-background: #1F2937;      /* Dark Gray */
+  --bms-surface: #374151;         /* Medium Gray */
+  --bms-surface-light: #4B5563;   /* Light Gray */
+  --bms-text-primary: #F9FAFB;    /* White */
+  --bms-text-secondary: #D1D5DB;  /* Light Gray */
+  --bms-text-muted: #9CA3AF;      /* Muted Gray */
+  --bms-border: #6B7280;          /* Border Gray */
+  --bms-success: #10B981;         /* Green */
+  --bms-warning: #F59E0B;         /* Orange */
+  --bms-error: #EF4444;           /* Red */
+  
+  /* Seat Colors */
+  --seat-available: #10B981;      /* Green */
+  --seat-selected: #DC2626;       /* Red */
+  --seat-booked: #6B7280;         /* Gray */
+  --seat-locked: #F59E0B;         /* Orange */
+}
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bms-background);
+  color: var(--bms-text-primary);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: var(--bms-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--bms-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--bms-surface);
+  color: var(--bms-text-primary);
+  border: 1px solid var(--bms-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bms-surface-light);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--bms-surface);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--bms-border);
+}
+
+/* Loading Animation */
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--bms-surface-light);
+  border-top: 3px solid var(--bms-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

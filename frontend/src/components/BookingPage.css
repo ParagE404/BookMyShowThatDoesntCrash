@@ -1,0 +1,232 @@
+/* frontend/src/components/BookingPage.css */
+.booking-page {
+    min-height: 100vh;
+    background-color: var(--bms-background);
+  }
+  
+  .booking-header {
+    background: linear-gradient(135deg, var(--bms-surface) 0%, var(--bms-background) 100%);
+    border-bottom: 1px solid var(--bms-border);
+    padding: 1rem 0;
+  }
+  
+  .event-info h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--bms-text-primary);
+  }
+  
+  .event-details {
+    display: flex;
+    gap: 2rem;
+    color: var(--bms-text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  .booking-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 1rem;
+  }
+  
+  .booking-error {
+    text-align: center;
+    padding: 2rem;
+    color: var(--bms-error);
+  }
+  
+  .seat-selection-container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .booking-summary h3 {
+    margin-bottom: 1rem;
+    color: var(--bms-text-primary);
+  }
+  
+  .selected-seats {
+    margin-bottom: 1.5rem;
+  }
+  
+  .selected-seat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--bms-border);
+  }
+  
+  .total-section {
+    border-top: 2px solid var(--bms-border);
+    padding-top: 1rem;
+  }
+  
+  .total-amount {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--bms-text-primary);
+  }
+  
+  .proceed-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .no-seats-selected {
+    text-align: center;
+    color: var(--bms-text-muted);
+  }
+  
+  .seat-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+  
+  .legend-color.available { background-color: var(--seat-available); }
+  .legend-color.selected { background-color: var(--seat-selected); }
+  .legend-color.booked { background-color: var(--seat-booked); }
+  
+  /* Booking Confirmation Styles */
+  .booking-confirmation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 2rem;
+  }
+  
+  .confirmation-card {
+    background-color: var(--bms-surface);
+    border-radius: 1rem;
+    padding: 3rem;
+    max-width: 600px;
+    text-align: center;
+    border: 1px solid var(--bms-border);
+  }
+  
+  .success-icon {
+    margin-bottom: 2rem;
+  }
+  
+  .checkmark {
+    width: 80px;
+    height: 80px;
+    background-color: var(--bms-success);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .confirmation-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--bms-text-primary);
+  }
+  
+  .confirmation-message {
+    color: var(--bms-text-secondary);
+    margin-bottom: 2rem;
+  }
+  
+  .booking-details {
+    background-color: var(--bms-background);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--bms-border);
+  }
+  
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+  
+  .booking-id {
+    font-family: monospace;
+    background-color: var(--bms-surface-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+  
+  .amount {
+    font-weight: 600;
+    color: var(--bms-success);
+  }
+  
+  .seats-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .seat-tag {
+    background-color: var(--bms-primary);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+  
+  .confirmation-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .seat-selection-container {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .event-details {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .confirmation-card {
+      padding: 2rem 1rem;
+    }
+    
+    .confirmation-actions {
+      flex-direction: column;
+    }
+  }
+  

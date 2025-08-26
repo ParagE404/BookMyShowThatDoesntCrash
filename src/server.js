@@ -1,6 +1,13 @@
 const { authLimiter, generalLimiter } = require('./middleware/rateLimit');
 const authRoutes = require('./routes/auth');
 const queueRoutes = require('./routes/queue');
+const inventoryRoutes = require('./routes/inventory');
+const bookingRoutes = require('./routes/booking');
+const cleanupService = require('./services/cleanupService');
+const paymentRoutes = require('./routes/payment');
+
+
+
 
 const http = require('http');
 const queueService = require('./services/queueService');
@@ -11,6 +18,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const compression = require("compression");
 const morgan = require("morgan");
+
 
 const { Server } = require('socket.io');
 const { startQueueNotifier } = require('./services/queueNotifier');
@@ -77,6 +85,10 @@ app.use(express.json({ limit: "10mb" }));
 app.use(morgan("combined"));
 
 app.use('/api/auth', authLimiter);
+app.use('/api/inventory', inventoryRoutes);
+app.use('/api/booking', bookingRoutes);
+app.use('/api/payment', paymentRoutes);
+
 app.use('/api', generalLimiter);
 
 app.use('/api/auth', authRoutes);
@@ -114,5 +126,8 @@ server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🏠 Health check: http://localhost:${PORT}/health`);
 });
+
+cleanupService.start();
+
 
 module.exports = { app, server, io };

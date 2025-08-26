@@ -1,0 +1,84 @@
+/* frontend/src/components/BookingTimer.css */
+.booking-timer {
+    background: linear-gradient(135deg, var(--bms-warning) 0%, #F97316 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  }
+  
+  .booking-timer.expired {
+    background: linear-gradient(135deg, var(--bms-error) 0%, #DC2626 100%);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  }
+  
+  .timer-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .timer-icon {
+    font-size: 1.5rem;
+  }
+  
+  .timer-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .timer-label {
+    font-size: 0.875rem;
+    opacity: 0.9;
+  }
+  
+  .timer-display {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: monospace;
+  }
+  
+  .timer-display.urgent {
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  .timer-progress {
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: white;
+    transition: width 1s ease;
+    border-radius: 2px;
+  }
+  
+  /* Responsive Timer */
+  @media (max-width: 768px) {
+    .booking-timer {
+      padding: 0.75rem 1rem;
+    }
+    
+    .timer-content {
+      gap: 0.75rem;
+    }
+    
+    .timer-display {
+      font-size: 1.25rem;
+    }
+    
+    .timer-icon {
+      font-size: 1.25rem;
+    }
+  }
+  

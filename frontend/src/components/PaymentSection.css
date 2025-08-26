@@ -1,0 +1,225 @@
+/* frontend/src/components/PaymentSection.css */
+.payment-section {
+    padding: 2rem 0;
+  }
+  
+  .payment-container {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .booking-summary-card,
+  .payment-form-card {
+    background-color: var(--bms-surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid var(--bms-border);
+  }
+  
+  .booking-summary-card h3,
+  .payment-form-card h3 {
+    color: var(--bms-text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .event-info {
+    padding: 1rem;
+    background-color: var(--bms-background);
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .event-info h4 {
+    color: var(--bms-text-primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .event-info p {
+    color: var(--bms-text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  .selected-seats-summary h5 {
+    color: var(--bms-text-primary);
+    margin-bottom: 1rem;
+  }
+  
+  .seat-summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--bms-border);
+    color: var(--bms-text-secondary);
+  }
+  
+  .seat-summary-item:last-child {
+    border-bottom: none;
+  }
+  
+  .price-breakdown {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--bms-border);
+  }
+  
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    color: var(--bms-text-secondary);
+  }
+  
+  .price-row.total {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--bms-text-primary);
+    border-top: 1px solid var(--bms-border);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .payment-error {
+    background-color: var(--bms-error);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .payment-method-tabs {
+    display: flex;
+    background-color: var(--bms-background);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .tab {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--bms-text-secondary);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+  }
+  
+  .tab.active {
+    background-color: var(--bms-primary);
+    color: white;
+  }
+  
+  .tab:hover:not(.active) {
+    background-color: var(--bms-surface-light);
+    color: var(--bms-text-primary);
+  }
+  
+  .payment-form {
+    background-color: var(--bms-background);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--bms-text-primary);
+    font-weight: 500;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--bms-border);
+    border-radius: 0.5rem;
+    background-color: var(--bms-surface);
+    color: var(--bms-text-primary);
+    font-size: 0.875rem;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--bms-primary);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+  }
+  
+  .payment-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .payment-actions .btn {
+    flex: 1;
+    padding: 1rem;
+    font-weight: 600;
+  }
+  
+  .pay-button {
+    position: relative;
+  }
+  
+  .spinner.small {
+    width: 1rem;
+    height: 1rem;
+    border-width: 2px;
+  }
+  
+  .security-info {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--bms-text-muted);
+    font-size: 0.875rem;
+  }
+  
+  /* Responsive Payment Section */
+  @media (max-width: 1024px) {
+    .payment-container {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .payment-section {
+      padding: 1rem;
+    }
+    
+    .booking-summary-card,
+    .payment-form-card {
+      padding: 1.5rem;
+    }
+    
+    .payment-method-tabs {
+      flex-direction: column;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .payment-actions {
+      flex-direction: column;
+    }
+  }
+  

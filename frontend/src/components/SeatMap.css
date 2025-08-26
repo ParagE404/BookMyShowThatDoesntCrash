@@ -1,0 +1,188 @@
+/* frontend/src/components/SeatMap.css */
+.seat-map {
+    background-color: var(--bms-surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid var(--bms-border);
+  }
+  
+  .stage {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .stage-label {
+    background: linear-gradient(135deg, var(--bms-primary) 0%, var(--bms-primary-hover) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  }
+  
+  .seat-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .seat-category {
+    background-color: var(--bms-background);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid var(--bms-border);
+  }
+  
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--bms-border);
+  }
+  
+  .category-header h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .category-price {
+    background-color: var(--bms-surface-light);
+    color: var(--bms-text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .seats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 8px;
+    max-width: 100%;
+  }
+  
+  .seat {
+    width: 40px;
+    height: 40px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .seat.available {
+    background-color: var(--seat-available);
+    color: white;
+    border-color: var(--seat-available);
+  }
+  
+  .seat.available:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  }
+  
+  .seat.selected {
+    background-color: var(--seat-selected);
+    color: white;
+    border-color: var(--seat-selected);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+  }
+  
+  .seat.locked {
+    background-color: var(--seat-locked);
+    color: white;
+    border-color: var(--seat-locked);
+    cursor: not-allowed;
+  }
+  
+  .seat.booked {
+    background-color: var(--seat-booked);
+    color: var(--bms-text-muted);
+    border-color: var(--seat-booked);
+    cursor: not-allowed;
+  }
+  
+  .seat:disabled {
+    opacity: 0.6;
+  }
+  
+  .seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--bms-border);
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--bms-text-secondary);
+  }
+  
+  .legend-seat {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+  }
+
+  .no-seats-message {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--bms-text-secondary);
+  }
+  
+  .no-seats-message p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .no-seats-message .btn {
+    margin-top: 1rem;
+  }
+  
+  .legend-seat.available { background-color: var(--seat-available); }
+  .legend-seat.selected { background-color: var(--seat-selected); }
+  .legend-seat.locked { background-color: var(--seat-locked); }
+  .legend-seat.booked { background-color: var(--seat-booked); }
+  
+  /* Responsive Seat Map */
+  @media (max-width: 768px) {
+    .seat-map {
+      padding: 1rem;
+    }
+    
+    .seats-grid {
+      grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+      gap: 6px;
+    }
+    
+    .seat {
+      width: 32px;
+      height: 32px;
+      font-size: 0.625rem;
+    }
+    
+    .seat-legend {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .stage-label {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+    }
+  }
+  
