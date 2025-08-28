@@ -1,20 +1,19 @@
 # 🎫 BookMyShow That Doesn't Crash
 
-**Building the High-Concurrency Ticketing System That Can Handle 13 Million Users**
+**Building the High-Concurrency Ticketing System That Can Handle Millions of Users**
 
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-19+-blue.svg)](https://reactjs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-blue.svg)](https://postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-7+-red.svg)](https://redis.io/)
-[![License](https://img.shields.io/badge/License-ISC-yellow.svg)](LICENSE)
 
 ## 🎯 The Problem That Inspired This Project
 
-**September 22, 2024** - BookMyShow crashed within minutes when Coldplay concert tickets went live, leaving **13 million users** frustrated and unable to purchase tickets. This wasn't their first failure either - similar crashes occurred during the 2023 Cricket World Cup.
+**September 22, 2024** - BookMyShow crashed within minutes when Coldplay concert tickets went live, leaving **millions of users** frustrated and unable to purchase tickets.
 
 **This project is my answer to that problem.**
 
-Built to showcase **system design and full-stack development skills** for **SDE-2 positions**, this is a production-ready ticketing system that can handle massive concurrent loads without breaking.
+Built to showcase **system design and full-stack development**, this is a production-ready ticketing system that can handle massive concurrent loads without breaking.
 
 ## 🚀 What Makes This Different
 
@@ -59,14 +58,6 @@ Socket.IO Client      → Real-time updates
 CSS3                  → BookMyShow-inspired responsive design
 ```
 
-### DevOps & Monitoring
-```
-Docker                → Containerization ready
-Jest                  → Unit and integration testing
-Morgan                → HTTP request logging
-Helmet                → Security headers
-Compression           → Response optimization
-```
 
 ## 🏛️ System Architecture
 
@@ -95,13 +86,6 @@ ZRANK queue:coldplay-mumbai-2025 user_id  // Get position
 ZPOPMIN queue:coldplay-mumbai-2025 50     // Process batch
 ```
 
-### Database Design
-```sql
-events → seat_categories → seats → booking_items ← bookings
-                                                      ↑
-                                                   users
-```
-
 ## 🎮 Live Demo Experience
 
 ### 1. **Authentication Flow**
@@ -127,25 +111,6 @@ events → seat_categories → seats → booking_items ← bookings
 - Automatic booking confirmation
 - Seat release on payment failure
 
-## 📈 Performance Benchmarks
-
-### Load Testing Results
-```
-✅ Concurrent Users: 10,000
-✅ Queue Join Rate: 1,000/second  
-✅ Average Response Time: 45ms
-✅ 99th Percentile: 120ms
-✅ Error Rate: 0.01%
-✅ Memory Usage: 512MB (stable)
-```
-
-### Database Performance
-```
-✅ Connection Pool: 20 connections
-✅ Query Response Time: <10ms (avg)
-✅ Concurrent Bookings: 500/second
-✅ Lock Contention: Minimal (Redis distributed locks)
-```
 
 ## 🚦 Quick Start
 
@@ -225,103 +190,15 @@ POST /api/payment/confirm                   # Confirm payment
 - **Room Management**: Efficient user grouping
 - **Authentication**: Secure connection handling
 
-## 🧪 Testing Strategy
-
-```bash
-# Unit tests
-npm test
-
-# Integration tests  
-npm run test:integration
-
-# Load testing
-npm run test:load
-```
-
-## 🚀 Production Deployment
-
-### Docker Deployment
-```bash
-docker-compose up -d
-```
-
-### Production Checklist
-- [x] Environment variables secured
-- [x] Database migrations automated
-- [x] Redis cluster configured
-- [x] SSL certificates ready
-- [x] Monitoring implemented
-- [x] Backup strategy defined
-- [x] Load balancer configured
-
-## 🔍 Monitoring & Observability
-
-### Key Metrics Tracked
-- Queue length and processing rate
-- Database connection pool usage
-- API response times and error rates
-- Memory and CPU utilization
-- WebSocket connection count
-
-### Structured Logging
-```javascript
-console.log(`🎫 User ${userId} joined queue for ${eventId} at position ${position}`);
-console.log(`💳 Payment processed successfully for booking ${bookingId}`);
-console.log(`🧹 Cleaned up ${count} expired bookings`);
-```
 
 ## 👨‍💻 About This Project
 
-**Built by Parag Dharadhar** to demonstrate:
+**Built by Parag Dharadhar**
 
-### 🎯 **System Design Skills**
-- Scalable architecture patterns
-- Distributed systems concepts
-- Performance optimization techniques
-- Database design and optimization
-
-### 💻 **Full-Stack Development**
-- Modern React with hooks and context
-- Node.js/Express API design
-- Real-time WebSocket implementation
-- Payment gateway integration
-
-### 🔧 **Production Engineering**
-- Error handling and logging
-- Security best practices
-- Testing strategies
-- Deployment automation
-
-### 📊 **Problem Solving**
-- Real-world performance challenges
-- Concurrency and race conditions
-- User experience optimization
-- Scalability bottlenecks
-
-## 🎯 Why This Matters for SDE-2 Roles
-
-This project demonstrates the exact skills needed for Senior Software Engineer positions:
-
-1. **System Design**: Can architect systems that handle millions of users
-2. **Full-Stack Expertise**: Modern React + Node.js with production patterns
-3. **Performance Engineering**: Optimized for real-world scale and load
-4. **Production Mindset**: Security, monitoring, testing, and deployment ready
-5. **Problem Solving**: Solved a real problem that affects millions of users
-
-**The result?** A ticketing system that doesn't crash when 13 million people want Coldplay tickets.
-
-## 🤝 Connect With Me
-
-**Seeking SDE-2 opportunities** where I can apply these skills to build systems that handle millions of users reliably.
 
 - **GitHub**: [ParagE404](https://github.com/ParagE404)
-- **LinkedIn**: [Connect with me](https://linkedin.com/in/paragdharadhar)
-- **Email**: Available upon request
+- **LinkedIn**: [Connect with me](https://www.linkedin.com/in/parag-dharadhar-6823bb1aa/)
+- **Email**: paragdharadhar@gmail.com
+-- **Portfolio**: [paragdharadhar.dev](https://paragdharadhar.dev/)
 
 ---
-
-*"The best way to predict the future is to build it."* 
-
-This project proves that with proper system design, we can build ticketing systems that don't crash when millions of users want to see their favorite artists. 🎵
-
-**Ready to discuss how I can bring these skills to your team!**
