@@ -31,7 +31,7 @@ export default function PaymentSection({
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Simulate payment
-      const paymentResponse = await axios.post(
+      await axios.post(
         "/api/payment/simulate-payment",
         {
           paymentIntentId: intentResponse.data.data.paymentIntentId,

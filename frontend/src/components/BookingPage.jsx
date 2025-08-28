@@ -1,5 +1,5 @@
 // frontend/src/components/BookingPage.jsx (continued)
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SeatMap from './SeatMap';
@@ -19,11 +19,7 @@ export default function BookingPage() {
 
   const token = localStorage.getItem('accessToken');
 
-  useEffect(() => {
-    fetchAvailableSeats();
-  }, [eventId]);
-
-  const fetchAvailableSeats = async () => {
+  const fetchAvailableSeats = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -46,7 +42,11 @@ export default function BookingPage() {
       setError('Failed to load seats. Please try again.');
       setLoading(false);
     }
-  };
+  }, [eventId, token]);
+
+  useEffect(() => {
+    fetchAvailableSeats();
+  }, [fetchAvailableSeats]);
   const handleSeatSelect = (seat) => {
     if (selectedSeats.find(s => s.id === seat.id)) {
       // Deselect seat
