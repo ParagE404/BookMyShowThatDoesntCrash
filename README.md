@@ -199,6 +199,5 @@ POST /api/payment/confirm                   # Confirm payment
 - **GitHub**: [ParagE404](https://github.com/ParagE404)
 - **LinkedIn**: [Connect with me](https://www.linkedin.com/in/parag-dharadhar-6823bb1aa/)
 - **Email**: paragdharadhar@gmail.com
--- **Portfolio**: [paragdharadhar.dev](https://paragdharadhar.dev/)
+- **Portfolio**: [paragdharadhar.dev](https://paragdharadhar.dev/)
 
----
