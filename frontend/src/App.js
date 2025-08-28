@@ -46,8 +46,7 @@ function App() {
           <div className="container">
             <div className="header-content">
               <div className="brand">
-                <h1>🎫 BookMyShow</h1>
-                <span className="tagline">Coldplay Special</span>
+                <h1>🎫 BookMyShow - That dosen't crash</h1>
               </div>
 
               {isAuthenticated && (
