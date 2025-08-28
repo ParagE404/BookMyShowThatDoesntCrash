@@ -54,6 +54,35 @@ class InventoryService {
     }
   }
 
+  async getAllSeats(eventId, categoryId = null, limit = 100) {
+    try {
+      let query = `
+        SELECT s.*, sc.price, sc.category_name
+        FROM seats s
+        JOIN seat_categories sc ON s.category_id = sc.id
+        WHERE s.event_id = $1
+      `;
+      const params = [eventId];
+      let paramIndex = 2;
+  
+      if (categoryId) {
+        query += ` AND s.category_id = $${paramIndex}`;
+        params.push(categoryId);
+        paramIndex++;
+      }
+  
+      query += ` ORDER BY s.section, s.row_number, s.seat_number LIMIT $${paramIndex}`;
+      params.push(limit);
+  
+      const result = await dbManager.query(query, params);
+      return result.rows || [];
+    } catch (error) {
+      console.error('Error fetching all seats:', error);
+      return [];
+    }
+  }
+  
+
   // Lock seats for a user (10-minute reservation)
   async lockSeats(userId, seatIds, durationMinutes = 10) {
     const client = await dbManager.pool.connect();

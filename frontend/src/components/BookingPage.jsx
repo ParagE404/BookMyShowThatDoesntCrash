@@ -36,7 +36,7 @@ export default function BookingPage() {
       console.log('API Response:', response.data); // Debug log
       
       // Extract the availableSeats array from the response
-      const seatsData = response.data.data?.availableSeats || [];
+      const seatsData = response.data.data?.seats || [];
       console.log('Seats data:', seatsData); // Debug log
       
       setSeats(Array.isArray(seatsData) ? seatsData : []);

@@ -7,38 +7,38 @@ const dbManager = require('../models/database'); // Add this line
 
 // Get available seats for an event
 router.get('/events/:eventId/seats', authenticate, async (req, res) => {
-    try {
-      const { eventId } = req.params;
-      const { category, limit = 100 } = req.query;
-  
-      const availableSeats = await inventoryService.getAvailableSeats(
-        eventId, 
-        category, 
-        parseInt(limit)
-      );
-  
-      // Make sure we return an array
-      res.json({
-        success: true,
-        data: {
-          eventId,
-          category: category || 'all',
-          availableSeats: Array.isArray(availableSeats) ? availableSeats : [],
-          count: availableSeats.length || 0
-        }
-      });
-  
-    } catch (error) {
-      console.error('Get seats error:', error);
-      res.status(500).json({
-        success: false,
-        error: {
-          message: 'Failed to fetch available seats',
-          code: 'FETCH_SEATS_ERROR'
-        }
-      });
-    }
-  });
+  try {
+    const { eventId } = req.params;
+    const { category, limit = 100 } = req.query;
+
+    const seats = await inventoryService.getAllSeats(
+      eventId, 
+      category, 
+      parseInt(limit)
+    );
+
+    res.json({
+      success: true,
+      data: {
+        eventId,
+        category: category || 'all',
+        seats: Array.isArray(seats) ? seats : [],
+        count: seats.length || 0
+      }
+    });
+
+  } catch (error) {
+    console.error('Get seats error:', error);
+    res.status(500).json({
+      success: false,
+      error: {
+        message: 'Failed to fetch seats',
+        code: 'FETCH_SEATS_ERROR'
+      }
+    });
+  }
+});
+
 
 // Get inventory summary
 router.get('/events/:eventId/summary', authenticate, async (req, res) => {
