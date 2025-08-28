@@ -17,7 +17,6 @@ export default function BookingPage() {
   const [step, setStep] = useState("selection"); // selection, payment, confirmation
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem("accessToken");
 
   const fetchAvailableSeats = useCallback(async () => {
     try {
@@ -41,7 +40,7 @@ export default function BookingPage() {
       setError("Failed to load seats. Please try again.");
       setLoading(false);
     }
-  }, [eventId, token]);
+  }, [eventId]);
 
   useEffect(() => {
     fetchAvailableSeats();
