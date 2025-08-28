@@ -1,22 +1,24 @@
 // Update frontend/src/App.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate
-} from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register'; // Add this import
-import QueueStatus from './components/QueueStatus';
-import BookingPage from './components/BookingPage';
-import './BookMyShowHeader.css';
+  Navigate,
+} from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register"; // Add this import
+import QueueStatus from "./components/QueueStatus";
+import BookingPage from "./components/BookingPage";
+import EventSelector from "./components/EventSelector";
+
+import "./BookMyShowHeader.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (token) {
       setIsAuthenticated(true);
     }
@@ -31,8 +33,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     setIsAuthenticated(false);
   };
 
@@ -47,13 +49,11 @@ function App() {
                 <h1>🎫 BookMyShow</h1>
                 <span className="tagline">Coldplay Special</span>
               </div>
-              
+
               {isAuthenticated && (
                 <div className="header-actions">
-                  <span className="user-info">
-                    Welcome to the queue!
-                  </span>
-                  <button 
+                  <span className="user-info">Welcome to the queue!</span>
+                  <button
                     className="btn btn-secondary logout-btn"
                     onClick={handleLogout}
                   >
@@ -71,7 +71,7 @@ function App() {
               path="/register"
               element={
                 isAuthenticated ? (
-                  <Navigate to="/queue" replace />
+                  <Navigate to="/choose-event" replace />
                 ) : (
                   <Register onRegister={handleRegister} />
                 )
@@ -82,7 +82,7 @@ function App() {
               path="/login"
               element={
                 isAuthenticated ? (
-                  <Navigate to="/queue" replace />
+                  <Navigate to="/choose-event" replace />
                 ) : (
                   <Login onLogin={handleLogin} />
                 )
@@ -90,13 +90,19 @@ function App() {
             />
 
             <Route
-              path="/queue"
+              path="/choose-event"
               element={
                 isAuthenticated ? (
-                  <QueueStatus eventId="coldplay-mumbai-2025" />
+                  <EventSelector token={localStorage.getItem("accessToken")} />
                 ) : (
                   <Navigate to="/login" replace />
                 )
+              }
+            />
+            <Route
+              path="/queue/:eventId"
+              element={
+                isAuthenticated ? <QueueStatus /> : <Navigate to="/login" />
               }
             />
 
@@ -115,9 +121,9 @@ function App() {
               path="*"
               element={
                 isAuthenticated ? (
-                  <Navigate to="/queue" replace />
+                  <Navigate to="/choose-event" replace />
                 ) : (
-                  <Navigate to="/register" replace />
+                  <Navigate to="/login" replace />
                 )
               }
             />

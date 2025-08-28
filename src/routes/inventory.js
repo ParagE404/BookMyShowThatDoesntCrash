@@ -167,6 +167,16 @@ router.post('/seats/release', authenticate, async (req, res) => {
   }
 });
 
+// Get all events
+router.get('/events', authenticate, async (req, res) => {
+  try {
+    const events = await dbManager.query('SELECT * FROM events ORDER BY event_date ASC');
+    res.json({ success: true, data: events.rows });
+  } catch (error) {
+    res.status(500).json({ success: false, error: { message: "Failed to fetch events" } });
+  }
+});
+
 // Debug endpoint to check database content
 router.get('/debug/:eventId', authenticate, async (req, res) => {
     try {

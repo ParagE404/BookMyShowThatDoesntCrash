@@ -1,24 +1,27 @@
 // src/models/database.js
-const { Pool } = require('pg');
-require('dotenv').config();
+const { Pool } = require("pg");
+require("dotenv").config();
 
 class DatabaseManager {
   constructor() {
     // Create connection pool for better performance
     this.pool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
+      ssl:
+        process.env.DATABASE_SSL === "true"
+          ? { rejectUnauthorized: false }
+          : false,
       max: 20, // Maximum number of clients in pool
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 2000,
     });
 
-    this.pool.on('connect', () => {
-      console.log('✅ Connected to Neon PostgreSQL database');
+    this.pool.on("connect", () => {
+      console.log("✅ Connected to Neon PostgreSQL database");
     });
 
-    this.pool.on('error', (err) => {
-      console.error('❌ PostgreSQL pool error:', err);
+    this.pool.on("error", (err) => {
+      console.error("❌ PostgreSQL pool error:", err);
     });
 
     this.initializeTables();
@@ -29,10 +32,14 @@ class DatabaseManager {
     try {
       const res = await this.pool.query(text, params);
       const duration = Date.now() - start;
-      console.log('📊 Query executed:', { text: text.substring(0, 50) + '...', duration, rows: res.rowCount });
+      console.log("📊 Query executed:", {
+        text: text.substring(0, 50) + "...",
+        duration,
+        rows: res.rowCount,
+      });
       return res;
     } catch (error) {
-      console.error('❌ Database query error:', error);
+      console.error("❌ Database query error:", error);
       throw error;
     }
   }
@@ -126,114 +133,255 @@ class DatabaseManager {
       `);
 
       // Create indexes for performance
-      await this.query('CREATE INDEX IF NOT EXISTS idx_seats_event_status ON seats(event_id, status)');
-      await this.query('CREATE INDEX IF NOT EXISTS idx_seats_locked_until ON seats(locked_until) WHERE locked_until IS NOT NULL');
-      await this.query('CREATE INDEX IF NOT EXISTS idx_bookings_user ON bookings(user_id)');
-      await this.query('CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status)');
-      await this.query('CREATE INDEX IF NOT EXISTS idx_bookings_expires ON bookings(booking_expires_at)');
-      await this.query('CREATE INDEX IF NOT EXISTS idx_booking_items_booking ON booking_items(booking_id)');
+      await this.query(
+        "CREATE INDEX IF NOT EXISTS idx_seats_event_status ON seats(event_id, status)"
+      );
+      await this.query(
+        "CREATE INDEX IF NOT EXISTS idx_seats_locked_until ON seats(locked_until) WHERE locked_until IS NOT NULL"
+      );
+      await this.query(
+        "CREATE INDEX IF NOT EXISTS idx_bookings_user ON bookings(user_id)"
+      );
+      await this.query(
+        "CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status)"
+      );
+      await this.query(
+        "CREATE INDEX IF NOT EXISTS idx_bookings_expires ON bookings(booking_expires_at)"
+      );
+      await this.query(
+        "CREATE INDEX IF NOT EXISTS idx_booking_items_booking ON booking_items(booking_id)"
+      );
 
-      console.log('✅ PostgreSQL tables initialized successfully');
-      
+      console.log("✅ PostgreSQL tables initialized successfully");
+
       // Seed demo data
       await this.seedData();
-
     } catch (error) {
-      console.error('❌ Error initializing database tables:', error);
+      console.error("❌ Error initializing database tables:", error);
       throw error;
     }
   }
 
   async seedData() {
     try {
-      const eventId = 'coldplay-mumbai-2025';
-      
-      // Check if event already exists
-      const existingEvent = await this.query('SELECT id FROM events WHERE id = $1', [eventId]);
-      
-      if (existingEvent.rows.length > 0) {
-        console.log('✅ Demo event data already exists');
-        return;
-      }
-
-      // Insert event
-      await this.query(`
-        INSERT INTO events (id, name, description, venue, event_date, total_seats, available_seats)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-      `, [
-        eventId,
-        'Coldplay: Music Of The Spheres World Tour',
-        'Experience the magic of Coldplay live in Mumbai',
-        'DY Patil Stadium, Mumbai',
-        '2025-01-19T19:00:00+05:30',
-        50000,
-        50000
-      ]);
-
-      // Insert seat categories
-      const categories = [
-        ['silver', eventId, 'Silver', 2500, 30000, 30000, 'General seating area with great view'],
-        ['gold', eventId, 'Gold', 7500, 15000, 15000, 'Premium seating closer to stage'],
-        ['platinum', eventId, 'Platinum', 12500, 5000, 5000, 'VIP seating with exclusive amenities']
+      // Define events to seed
+      const events = [
+        {
+          id: "coldplay-mumbai-2025",
+          name: "Coldplay: Music Of The Spheres World Tour",
+          description: "Experience the magic of Coldplay live in Mumbai",
+          venue: "DY Patil Stadium, Mumbai",
+          date: "2025-01-19T19:00:00+05:30",
+          totalSeats: 50000,
+          categories: [
+            {
+              id: "silver",
+              name: "Silver",
+              price: 2500,
+              totalSeats: 30000,
+              description: "General seating area with great view",
+            },
+            {
+              id: "gold",
+              name: "Gold",
+              price: 7500,
+              totalSeats: 15000,
+              description: "Premium seating closer to stage",
+            },
+            {
+              id: "platinum",
+              name: "Platinum",
+              price: 12500,
+              totalSeats: 5000,
+              description: "VIP seating with exclusive amenities",
+            },
+          ],
+        },
+        {
+          id: "taylor-swift-mumbai-2025",
+          name: "Taylor Swift: The Eras Tour",
+          description:
+            "Join Taylor Swift on her spectacular Eras Tour in Mumbai",
+          venue: "Jio World Garden, Mumbai",
+          date: "2025-03-15T19:30:00+05:30",
+          totalSeats: 45000,
+          categories: [
+            {
+              id: "general",
+              name: "General Admission",
+              price: 3500,
+              totalSeats: 25000,
+              description: "Standing area with amazing energy",
+            },
+            {
+              id: "premium",
+              name: "Premium",
+              price: 8500,
+              totalSeats: 15000,
+              description: "Reserved seating with excellent view",
+            },
+            {
+              id: "vip",
+              name: "VIP",
+              price: 15000,
+              totalSeats: 5000,
+              description: "VIP experience with exclusive perks",
+            },
+          ],
+        },
       ];
 
-      for (const [id, event_id, name, price, total, available, description] of categories) {
-        await this.query(`
-          INSERT INTO seat_categories (id, event_id, category_name, price, total_seats, available_seats, description)
+      for (const event of events) {
+        // Check if event already exists
+        const existingEvent = await this.query(
+          "SELECT id FROM events WHERE id = $1",
+          [event.id]
+        );
+
+        if (existingEvent.rows.length > 0) {
+          console.log(`✅ Event ${event.name} already exists`);
+          continue;
+        }
+
+        // Insert event
+        await this.query(
+          `
+          INSERT INTO events (id, name, description, venue, event_date, total_seats, available_seats)
           VALUES ($1, $2, $3, $4, $5, $6, $7)
-        `, [id, event_id, name, price, total, available, description]);
+        `,
+          [
+            event.id,
+            event.name,
+            event.description,
+            event.venue,
+            event.date,
+            event.totalSeats,
+            event.totalSeats,
+          ]
+        );
+
+        // Insert seat categories for this event
+        for (const category of event.categories) {
+          const categoryId = `${event.id}-${category.id}`;
+          await this.query(
+            `
+            INSERT INTO seat_categories (id, event_id, category_name, price, total_seats, available_seats, description)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+          `,
+            [
+              categoryId,
+              event.id,
+              category.name,
+              category.price,
+              category.totalSeats,
+              category.totalSeats,
+              category.description,
+            ]
+          );
+        }
+
+        // Generate seats for each event
+        await this.generateSampleSeats(event.id);
+        console.log(`✅ Event ${event.name} seeded successfully`);
       }
 
-      // Generate seats for each category (sample seats for demo)
-      await this.generateSampleSeats(eventId);
-      
-      console.log('✅ Demo event data seeded successfully');
-
+      console.log("✅ All demo event data seeded successfully");
     } catch (error) {
-      console.error('❌ Error seeding demo data:', error);
+      console.error("❌ Error seeding demo data:", error);
       throw error;
     }
   }
 
   async generateSampleSeats(eventId) {
     try {
-      // Generate a representative sample of seats (not all 50k for demo)
-      const categories = [
-        { id: 'silver', sections: ['A', 'B'], rowsPerSection: 5, seatsPerRow: 10 },
-        { id: 'gold', sections: ['VIP-1', 'VIP-2'], rowsPerSection: 3, seatsPerRow: 8 },
-        { id: 'platinum', sections: ['PLAT-1'], rowsPerSection: 2, seatsPerRow: 6 }
-      ];
+      // Define seat configurations for different events
+      const eventSeatConfigs = {
+        "coldplay-mumbai-2025": [
+          {
+            id: "silver",
+            sections: ["A", "B"],
+            rowsPerSection: 5,
+            seatsPerRow: 10,
+          },
+          {
+            id: "gold",
+            sections: ["VIP-1", "VIP-2"],
+            rowsPerSection: 3,
+            seatsPerRow: 8,
+          },
+          {
+            id: "platinum",
+            sections: ["PLAT-1"],
+            rowsPerSection: 2,
+            seatsPerRow: 6,
+          },
+        ],
+        "taylor-swift-mumbai-2025": [
+          {
+            id: "general",
+            sections: ["GA-1", "GA-2"],
+            rowsPerSection: 4,
+            seatsPerRow: 12,
+          },
+          {
+            id: "premium",
+            sections: ["PREM-1", "PREM-2"],
+            rowsPerSection: 4,
+            seatsPerRow: 10,
+          },
+          {
+            id: "vip",
+            sections: ["VIP-1"],
+            rowsPerSection: 3,
+            seatsPerRow: 8,
+          },
+        ],
+      };
 
-      console.log('🎫 Generating sample seats...');
+      const categories =
+        eventSeatConfigs[eventId] || eventSeatConfigs["coldplay-mumbai-2025"];
+
+      console.log(`🎫 Generating sample seats for ${eventId}...`);
 
       for (const category of categories) {
+        const categoryId = `${eventId}-${category.id}`;
+
         for (const section of category.sections) {
           for (let row = 1; row <= category.rowsPerSection; row++) {
             for (let seat = 1; seat <= category.seatsPerRow; seat++) {
               const seatId = `${eventId}-${category.id}-${section}-${row}-${seat}`;
               const seatNumber = `${section}-${row}-${seat}`;
-              
-              await this.query(`
+
+              await this.query(
+                `
                 INSERT INTO seats (id, event_id, category_id, seat_number, row_number, section)
                 VALUES ($1, $2, $3, $4, $5, $6)
                 ON CONFLICT (event_id, category_id, seat_number) DO NOTHING
-              `, [seatId, eventId, category.id, seatNumber, row.toString(), section]);
+              `,
+                [
+                  seatId,
+                  eventId,
+                  categoryId,
+                  seatNumber,
+                  row.toString(),
+                  section,
+                ]
+              );
             }
           }
         }
       }
 
-      console.log('✅ Sample seats generated');
-
+      console.log(`✅ Sample seats generated for ${eventId}`);
     } catch (error) {
-      console.error('❌ Error generating seats:', error);
+      console.error("❌ Error generating seats:", error);
       throw error;
     }
   }
 
   async close() {
     await this.pool.end();
-    console.log('🔌 Database pool closed');
+    console.log("🔌 Database pool closed");
   }
 }
 
@@ -241,14 +389,14 @@ class DatabaseManager {
 const dbManager = new DatabaseManager();
 
 // Graceful shutdown
-process.on('SIGINT', async () => {
-  console.log('🛑 Received SIGINT, closing database connection...');
+process.on("SIGINT", async () => {
+  console.log("🛑 Received SIGINT, closing database connection...");
   await dbManager.close();
   process.exit(0);
 });
 
-process.on('SIGTERM', async () => {
-  console.log('🛑 Received SIGTERM, closing database connection...');
+process.on("SIGTERM", async () => {
+  console.log("🛑 Received SIGTERM, closing database connection...");
   await dbManager.close();
   process.exit(0);
 });
