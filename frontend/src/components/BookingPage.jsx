@@ -1,7 +1,6 @@
 // frontend/src/components/BookingPage.jsx (continued)
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { apiClient } from "../config/api";
 import SeatMap from "./SeatMap";
 import BookingTimer from "./BookingTimer";

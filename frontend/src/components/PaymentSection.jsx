@@ -1,6 +1,5 @@
 // frontend/src/components/PaymentSection.jsx
 import React, { useState } from "react";
-import axios from "axios";
 import { apiClient } from '../config/api';
 import "./PaymentSection.css";
 
@@ -14,7 +13,6 @@ export default function PaymentSection({
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem("accessToken");
 
   const handlePayment = async () => {
     try {

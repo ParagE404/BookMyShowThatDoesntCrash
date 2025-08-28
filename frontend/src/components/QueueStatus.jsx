@@ -1,7 +1,6 @@
 // frontend/src/components/QueueStatus.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from "axios";
 import { apiClient } from '../config/api';
 import { useQueue } from "../hooks/useQueue";
 import "./QueueStatus.css";
