@@ -18,13 +18,15 @@ Built to showcase **system design and full-stack development**, this is a produc
 ## 🚀 What Makes This Different
 
 ### 🏗️ Enterprise-Grade Architecture
+
 - **Virtual Queue System**: Fair FIFO queue using Redis sorted sets
-- **Real-time Updates**: WebSocket connections for live position tracking  
+- **Real-time Updates**: WebSocket connections for live position tracking
 - **Distributed Locking**: Prevents race conditions in seat booking
 - **Horizontal Scaling**: Stateless design ready for load balancers
 - **Circuit Breakers**: Graceful degradation under high load
 
 ### 🔒 Production Security
+
 - **Rate Limiting**: Sliding window algorithm (5 req/5min per user)
 - **JWT Authentication**: Secure token-based auth with refresh tokens
 - **Input Validation**: Comprehensive sanitization and validation
@@ -32,6 +34,7 @@ Built to showcase **system design and full-stack development**, this is a produc
 - **CORS Protection**: Secure cross-origin resource sharing
 
 ### 📊 Proven Scalability
+
 - **10M+ Concurrent Users**: Tested queue capacity
 - **50 Users/30sec**: Batch processing rate
 - **5-second Updates**: Real-time position refresh
@@ -40,6 +43,7 @@ Built to showcase **system design and full-stack development**, this is a produc
 ## 🛠️ Tech Stack
 
 ### Backend Infrastructure
+
 ```
 Node.js + Express     → High-performance API server
 PostgreSQL (Neon)     → ACID-compliant database with pooling
@@ -50,6 +54,7 @@ Stripe                → Payment processing integration
 ```
 
 ### Frontend Application
+
 ```
 React 19              → Modern UI with hooks and context
 React Router          → Client-side routing
@@ -57,7 +62,6 @@ Axios                 → HTTP client with interceptors
 Socket.IO Client      → Real-time updates
 CSS3                  → BookMyShow-inspired responsive design
 ```
-
 
 ## 🏛️ System Architecture
 
@@ -79,6 +83,7 @@ CSS3                  → BookMyShow-inspired responsive design
 ```
 
 ### Core Algorithm: Fair Virtual Queue
+
 ```javascript
 // Redis Sorted Set Implementation
 ZADD queue:coldplay-mumbai-2025 timestamp user_id
@@ -89,32 +94,55 @@ ZPOPMIN queue:coldplay-mumbai-2025 50     // Process batch
 ## 🎮 Live Demo Experience
 
 ### 1. **Authentication Flow**
+
 - Secure registration/login with bcrypt hashing
 - JWT tokens with 24-hour expiry + refresh tokens
 - Rate limiting prevents brute force attacks
 
 ### 2. **Virtual Queue Experience**
+
 - Join queue for "Coldplay: Music Of The Spheres World Tour"
 - Real-time position updates via WebSocket
 - Estimated wait time calculations
 - Fair FIFO processing (no queue jumping possible)
 
 ### 3. **Seat Selection & Booking**
+
 - Interactive seat map with real-time availability
 - 10-minute booking timer (exactly like BookMyShow)
 - Distributed seat locking prevents double booking
 - Multiple categories: Silver (₹2,500), Gold (₹7,500), Platinum (₹12,500)
 
 ### 4. **Payment Processing**
+
 - Stripe integration with test mode
 - Secure payment intent creation
 - Automatic booking confirmation
 - Seat release on payment failure
 
+## � Screkenshots
+
+### Authentication & User Experience
+
+![Login Interface](screenshots/1.png)
+
+### Payment & Booking Confirmation
+
+![Event Selection](screenshots/2.png)
+
+### Virtual Queue System
+
+![Queue Status](screenshots/3.png)
+
+### Interactive Seat Selection
+
+![Seat Map](screenshots/4.png)
+
 
 ## 🚦 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 - PostgreSQL 15+
 - Redis 7+
@@ -138,7 +166,7 @@ cp .env.example .env
 # Terminal 1: Backend
 npm run dev
 
-# Terminal 2: Frontend  
+# Terminal 2: Frontend
 cd frontend && npm start
 ```
 
@@ -147,6 +175,7 @@ Visit `http://localhost:3001` to experience the system.
 ## 🔧 API Documentation
 
 ### Authentication
+
 ```bash
 POST /api/auth/register    # User registration
 POST /api/auth/login       # User login
@@ -154,6 +183,7 @@ POST /api/auth/refresh     # Token refresh
 ```
 
 ### Queue Management
+
 ```bash
 POST /api/queue/join                    # Join event queue
 GET /api/queue/position/:eventId        # Get queue position
@@ -162,6 +192,7 @@ GET /api/queue/stats/:eventId           # Queue statistics
 ```
 
 ### Booking & Payment
+
 ```bash
 GET /api/inventory/events/:eventId/seats    # Available seats
 POST /api/inventory/lock-seats              # Lock seats
@@ -173,31 +204,31 @@ POST /api/payment/confirm                   # Confirm payment
 ## 🎯 System Design Decisions
 
 ### Why Redis for Queues?
+
 - **Atomic Operations**: ZADD, ZRANK, ZPOPMIN prevent race conditions
-- **Persistence**: AOF and RDB for queue durability  
+- **Persistence**: AOF and RDB for queue durability
 - **Scalability**: Redis Cluster for horizontal scaling
 - **Performance**: Sub-millisecond operations
 
 ### Why PostgreSQL?
+
 - **ACID Compliance**: Critical for financial transactions
 - **Connection Pooling**: Efficient resource utilization
 - **JSON Support**: Flexible data structures
 - **Mature Ecosystem**: Proven at enterprise scale
 
 ### Why Socket.IO?
+
 - **Real-time Updates**: Essential for queue position tracking
 - **Fallback Support**: WebSocket → Polling graceful degradation
 - **Room Management**: Efficient user grouping
 - **Authentication**: Secure connection handling
 
-
 ## 👨‍💻 About This Project
 
 **Built by Parag Dharadhar**
-
 
 - **GitHub**: [ParagE404](https://github.com/ParagE404)
 - **LinkedIn**: [Connect with me](https://www.linkedin.com/in/parag-dharadhar-6823bb1aa/)
 - **Email**: paragdharadhar@gmail.com
 - **Portfolio**: [paragdharadhar.dev](https://paragdharadhar.dev/)
-
