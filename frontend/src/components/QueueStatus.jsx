@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { apiClient } from '../config/api';
 import { useQueue } from "../hooks/useQueue";
 import "./QueueStatus.css";
 
@@ -54,12 +55,10 @@ export default function QueueStatus() {
       try {
         console.log("📡 Making API call to /api/queue/join with:", { eventId });
         
-        const response = await axios.post(
+        const response = await apiClient.post(
           "/api/queue/join",
-          { eventId }, // Make sure eventId is being passed
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          { eventId }// Make sure eventId is being passed
+          
         );
         
         console.log("✅ Successfully joined queue:", response.data);

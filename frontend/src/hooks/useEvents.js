@@ -1,6 +1,6 @@
 // src/hooks/useEvents.js
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { apiClient } from "../config/api";
 
 export function useEvents(token) {
   const [events, setEvents] = useState([]);
@@ -8,9 +8,7 @@ export function useEvents(token) {
 
   useEffect(() => {
     if (!token) return;
-    axios.get('/api/inventory/events', {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => {
+    apiClient.get("/api/inventory/events").then((res) => {
       setEvents(res.data.data || []);
       setLoading(false);
     });

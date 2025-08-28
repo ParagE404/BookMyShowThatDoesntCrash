@@ -10,7 +10,7 @@ router.get('/events/:eventId/seats', authenticate, async (req, res) => {
   try {
     const { eventId } = req.params;
     const { category, limit = 100 } = req.query;
-
+    console.log("Category: ",category)
     const seats = await inventoryService.getAllSeats(
       eventId, 
       category, 

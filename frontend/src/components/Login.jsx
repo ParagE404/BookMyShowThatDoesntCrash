@@ -1,7 +1,7 @@
 // frontend/src/components/Login.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { apiClient } from "../config/api";
 import "./Auth.css";
 
 export default function Login({ onLogin }) {
@@ -73,7 +73,7 @@ export default function Login({ onLogin }) {
     try {
       console.log("📡 Attempting login with:", { email: formData.email });
       
-      const response = await axios.post("/api/auth/login", {
+      const response = await apiClient.post("/api/auth/login", {
         email: formData.email,
         password: formData.password
       });

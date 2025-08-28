@@ -1,6 +1,7 @@
 // frontend/src/components/PaymentSection.jsx
 import React, { useState } from "react";
 import axios from "axios";
+import { apiClient } from '../config/api';
 import "./PaymentSection.css";
 
 export default function PaymentSection({
@@ -21,24 +22,23 @@ export default function PaymentSection({
       setError(null);
 
       // Create payment intent
-      const intentResponse = await axios.post(
+      const intentResponse = await apiClient.post(
         "/api/payment/create-intent",
-        { bookingId: booking.id },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { bookingId: booking.id }
+        
       );
 
       // Simulate payment processing delay
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Simulate payment
-      await axios.post(
+      await apiClient.post(
         "/api/payment/simulate-payment",
         {
           paymentIntentId: intentResponse.data.data.paymentIntentId,
           bookingId: booking.id,
           success: true,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
+        }
       );
 
       onPaymentSuccess({

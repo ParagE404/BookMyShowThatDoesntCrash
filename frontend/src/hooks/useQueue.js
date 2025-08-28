@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import API_BASE_URL from '../config/api';
 
 export function useQueue(eventId, token) {
   const [position, setPosition] = useState(null);
@@ -14,7 +15,7 @@ export function useQueue(eventId, token) {
     if (!token) return;
 
     // Connect with auth token
-    socketRef.current = io('http://localhost:3000', {
+    socketRef.current = io(API_BASE_URL, {
       auth: { token }
     });
     

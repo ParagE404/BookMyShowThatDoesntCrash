@@ -1,7 +1,7 @@
 // frontend/src/components/Register.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { apiClient } from '../config/api';
 import './Auth.css';
 
 export default function Register({ onRegister }) {
@@ -94,7 +94,7 @@ export default function Register({ onRegister }) {
 
     try {
       // Register user
-      const registerResponse = await axios.post('/api/auth/register', {
+      const registerResponse = await apiClient.post('/api/auth/register', {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
@@ -104,7 +104,7 @@ export default function Register({ onRegister }) {
       console.log('Registration successful:', registerResponse.data);
 
       // Automatically log in after successful registration
-      const loginResponse = await axios.post('/api/auth/login', {
+      const loginResponse = await apiClient.post('/api/auth/login', {
         email: formData.email,
         password: formData.password
       });
