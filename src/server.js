@@ -52,7 +52,7 @@ io.use(async (socket, next) => {
 
 // Handle connections
 io.on('connection', (socket) => {
-  console.log(`🟢 Socket connected: ${socket.id} (User: ${socket.user.id})`);
+  console.log(` Socket connected: ${socket.id} (User: ${socket.user.id})`);
 
   // Join specific queue room
   socket.on('join-queue', ({ eventId }) => {

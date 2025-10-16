@@ -142,6 +142,10 @@
     border-top: 1px solid var(--bms-border);
   }
 
+  .a-c{
+    text-align: center;
+  }
+
   .auth-demo {
     text-align: center;
     margin-top: 30px;

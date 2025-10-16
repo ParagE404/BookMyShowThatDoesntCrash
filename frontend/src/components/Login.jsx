@@ -191,7 +191,7 @@ export default function Login({ onLogin }) {
           </p>
         </div>
 
-        <div className="auth-demo">
+        <div className="auth-demo a-c">
           <h4>🎭 Demo Credentials</h4>
           <div className="demo-credentials">
             <div className="demo-account">

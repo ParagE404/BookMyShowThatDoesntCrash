@@ -45,6 +45,7 @@ export default function BookingPage() {
   useEffect(() => {
     fetchAvailableSeats();
   }, [fetchAvailableSeats]);
+  
   const handleSeatSelect = (seat) => {
     if (selectedSeats.find((s) => s.id === seat.id)) {
       // Deselect seat
